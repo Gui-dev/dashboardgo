@@ -8,7 +8,7 @@ type InputProps = ChakraInputProps & {
 export const Input = ({ name, label, ...rest }: InputProps) => {
   return (
     <FormControl>
-      { !!label && <FormLabel htmlFor="email">label</FormLabel> }
+      { !!label && <FormLabel htmlFor="email">{ label }</FormLabel> }
       <ChakraInput
         name={ name }
         id={ name }
