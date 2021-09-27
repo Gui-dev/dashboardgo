@@ -1,4 +1,4 @@
-import { Flex } from '@chakra-ui/react'
+import { Flex, useBreakpointValue } from '@chakra-ui/react'
 
 import { Profile } from './Profile'
 import { Notification } from './Notification'
@@ -6,6 +6,11 @@ import { Logo } from './Logo'
 import { Search } from './Search'
 
 export const Header = () => {
+  const isWideVersion = useBreakpointValue({
+    base: false,
+    lg: true
+  })
+
   return (
     <Flex
       as="header"
@@ -18,14 +23,17 @@ export const Header = () => {
       px="6"
     >
       <Logo />
-      <Search />
+
+      { isWideVersion && (
+        <Search />
+      ) }
 
       <Flex
         align="center"
         ml="auto"
       >
         <Notification />
-        <Profile />
+        <Profile showProfileData={ isWideVersion }/>
       </Flex>
 
     </Flex>
