@@ -68,7 +68,7 @@ const Dashboard = () => {
 
         <SimpleGrid align="flex-start" flex="1" gap="4" minChildWidth="320px">
           <Box
-            p="8"
+            p={['6', '8']}
             pb="4"
             bg="gray.800"
             borderRadius={ 8 }
@@ -83,7 +83,7 @@ const Dashboard = () => {
           </Box>
 
           <Box
-            p="8"
+            p={['6', '8']}
             bg="gray.800"
             borderRadius={ 8 }
           >
