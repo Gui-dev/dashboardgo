@@ -10,7 +10,7 @@ export const NavSection = ({ title, children }: NavSectionProps) => {
   return (
     <Box>
       <Text fontSize="small" fontWeight="bold" color="gray.400">{title}</Text>
-      <Stack align="stretch" mt="8" spacing="4">
+      <Stack align="stretch" mt="4" spacing="4">
         { children }
       </Stack>
     </Box>
