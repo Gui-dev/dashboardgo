@@ -10,20 +10,20 @@ const UserCreate = () => {
     <Box>
       <Header />
 
-      <Flex mx="auto" px="6" w="100%" maxWidth={1480}>
+      <Flex mx="auto" px={['6', '8']} w="100%" maxWidth={1480}>
         <Sidebar />
 
-        <Box flex="1" p="8" bg="gray.800" borderRadius={8}>
+        <Box flex="1" p={['6', '8']} bg="gray.800" borderRadius={8}>
           <Heading fontWeight="normal" size="lg">Criar usuário</Heading>
           <Divider my="6" borderColor="gray.700"/>
 
           <VStack spacing="8">
-            <SimpleGrid w="100%" minChildWidth="240px" spacing="8">
+            <SimpleGrid w="100%" minChildWidth="240px" spacing={['6', '8']}>
               <Input name="name" label="Nome completo"/>
               <Input type="email" name="email" label="E-mail"/>
             </SimpleGrid>
 
-            <SimpleGrid w="100%" minChildWidth="240px" spacing="8">
+            <SimpleGrid w="100%" minChildWidth="240px" spacing={['6', '8']}>
               <Input type="password" name="password" label="Senha"/>
               <Input type="password" name="password_confirmation" label="Confirmação da senha"/>
             </SimpleGrid>
