@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import { Box, Button, Divider, Flex, Heading, HStack, Icon, SimpleGrid, VStack } from '@chakra-ui/react'
 import { RiCloseLine, RiSaveLine } from 'react-icons/ri'
 
@@ -31,12 +32,15 @@ const UserCreate = () => {
 
           <Flex justify="flex-end" mt="8">
             <HStack spacing="4">
-              <Button
-                colorScheme="whiteAlpha"
-                leftIcon={<Icon as={RiCloseLine} fontSize="20"/>}
-              >
-                Cancelar
-              </Button>
+              <Link href="/users" passHref>
+                <Button
+                  as="a"
+                  colorScheme="whiteAlpha"
+                  leftIcon={<Icon as={RiCloseLine} fontSize="20"/>}
+                >
+                  Cancelar
+                </Button>
+              </Link>
               <Button
                 colorScheme="pink"
                 leftIcon={<Icon as={RiSaveLine} fontSize="20"/>}

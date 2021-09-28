@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import {
   Box, Button, Checkbox, Flex, Heading, Icon, Table, Text, Tbody,
   Thead, Td, Th, Tr, useBreakpointValue
@@ -24,14 +25,16 @@ const UserList = () => {
         <Box flex="1" p="8" bg="gray.800" borderRadius={8}>
           <Flex align="center" justify="space-between" mb="8">
             <Heading size="lg" fontWeight="normal">Usuários</Heading>
-            <Button
-              as="a"
-              fontSize="sm"
-              colorScheme="pink"
-              leftIcon={<Icon as={RiAddLine} fontSize="20"/>}
-            >
-              Criar novo
-            </Button>
+            <Link href="/users/create" passHref>
+              <Button
+                as="a"
+                fontSize="sm"
+                colorScheme="pink"
+                leftIcon={<Icon as={RiAddLine} fontSize="20"/>}
+              >
+                Criar novo
+              </Button>
+            </Link>
           </Flex>
 
           <Table colorScheme="whiteAlpha">
