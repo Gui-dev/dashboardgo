@@ -12,7 +12,6 @@ type SignInFormData = {
 
 const SignIn = () => {
   const { formState: { errors, isSubmitting }, handleSubmit, register } = useForm<SignInFormData>({
-    // @ts-ignore
     resolver: yupResolver(formSignInSchema)
   })
 
