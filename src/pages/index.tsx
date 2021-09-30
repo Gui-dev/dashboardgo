@@ -1,6 +1,8 @@
 import { Flex, Button, Stack } from '@chakra-ui/react'
 import { SubmitHandler, useForm } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 
+import { formSignInSchema } from 'validations/formSignIn'
 import { Input } from 'components/Form/Input'
 
 type SignInFormData = {
@@ -9,7 +11,10 @@ type SignInFormData = {
 }
 
 const SignIn = () => {
-  const { register, handleSubmit, formState } = useForm()
+  const { formState: { errors, isSubmitting }, handleSubmit, register } = useForm<SignInFormData>({
+    // @ts-ignore
+    resolver: yupResolver(formSignInSchema)
+  })
 
   const handleSignIn: SubmitHandler<SignInFormData> = async (data, event) => {
     event.preventDefault()
@@ -36,6 +41,7 @@ const SignIn = () => {
           name="email"
           label="E-mail"
           { ...register('email') }
+          error={ errors.email }
         />
 
         <Input
@@ -43,6 +49,7 @@ const SignIn = () => {
           name="password"
           label="Senha"
           { ...register('password') }
+          error={ errors.password }
         />
 
       </Stack>
@@ -51,7 +58,7 @@ const SignIn = () => {
         mt="6"
         colorScheme="pink"
         size="lg"
-        isLoading={ formState.isSubmitting }
+        isLoading={ isSubmitting }
       >
         Entrar
       </Button>
