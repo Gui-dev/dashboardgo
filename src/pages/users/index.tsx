@@ -7,16 +7,28 @@ import {
 import { RiAddLine, RiPencilLine } from 'react-icons/ri'
 
 import { api } from 'services/api'
+import { formatDate } from 'utils/formatDate'
 
 import { Header } from 'components/Header'
 import { Sidebar } from 'components/Sidebar'
 import { Pagination } from 'components/Pagination'
 
 const UserList = () => {
-  const { error, isLoading } = useQuery('users', async () => {
+  const { data, error, isLoading } = useQuery('users', async () => {
     const { data } = await api.get('/users')
-    return data
+    const users = data.users.map(user => {
+      return {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        created_at: formatDate(user.createdAt)
+      }
+    })
+    return users
+  }, {
+    staleTime: 1000 * 5 // 5 segundos
   })
+
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true
@@ -72,30 +84,34 @@ const UserList = () => {
 
                     <Tbody>
 
-                      <Tr>
-                        <Td px={['4', '4', '6']}>
-                          <Checkbox colorScheme="pink"/>
-                        </Td>
-                        <Td>
-                          <Box>
-                            <Text fontWeight="bold">Gui Silva</Text>
-                            <Text fontSize="sm" color="gray.300">gui@email.com</Text>
-                          </Box>
-                        </Td>
-                        { isWideVersion && <Td>24 de Setembro, 2021</Td> }
-                        { isWideVersion && (
-                          <Td>
-                            <Button
-                              as="a"
-                              fontSize="sm"
-                              colorScheme="purple"
-                              leftIcon={<Icon as={RiPencilLine} fontSize="16"/>}
-                            >
-                              Editar
-                            </Button>
-                          </Td>
-                        ) }
-                      </Tr>
+                      { data.map(user => {
+                        return (
+                          <Tr key={ String(user.email) }>
+                            <Td px={['4', '4', '6']}>
+                              <Checkbox colorScheme="pink"/>
+                            </Td>
+                            <Td>
+                              <Box>
+                                <Text fontWeight="bold">{ user.name }</Text>
+                                <Text fontSize="sm" color="gray.300">{ user.email }</Text>
+                              </Box>
+                            </Td>
+                            { isWideVersion && <Td>{ user.created_at }</Td> }
+                            { isWideVersion && (
+                              <Td>
+                                <Button
+                                  as="a"
+                                  fontSize="sm"
+                                  colorScheme="purple"
+                                  leftIcon={<Icon as={RiPencilLine} fontSize="16"/>}
+                                >
+                                  Editar
+                                </Button>
+                              </Td>
+                            ) }
+                          </Tr>
+                        )
+                      }) }
 
                     </Tbody>
                   </Table>
