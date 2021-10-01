@@ -1,15 +1,22 @@
 import Link from 'next/link'
+import { useQuery } from 'react-query'
 import {
-  Box, Button, Checkbox, Flex, Heading, Icon, Table, Text, Tbody,
+  Box, Button, Checkbox, Flex, Heading, Icon, Spinner, Table, Text, Tbody,
   Thead, Td, Th, Tr, useBreakpointValue
 } from '@chakra-ui/react'
 import { RiAddLine, RiPencilLine } from 'react-icons/ri'
+
+import { api } from 'services/api'
 
 import { Header } from 'components/Header'
 import { Sidebar } from 'components/Sidebar'
 import { Pagination } from 'components/Pagination'
 
 const UserList = () => {
+  const { error, isLoading } = useQuery('users', async () => {
+    const { data } = await api.get('/users')
+    return data
+  })
   const isWideVersion = useBreakpointValue({
     base: false,
     lg: true
@@ -37,99 +44,67 @@ const UserList = () => {
             </Link>
           </Flex>
 
-          <Table colorScheme="whiteAlpha">
-            <Thead>
-              <Tr>
-                <Th color="gray.300" px={['4', '4', '6']} w="8">
-                  <Checkbox colorScheme="pink"/>
-                </Th>
-                <Th>Usuário</Th>
-                { isWideVersion && <Th>Data de Cadastro</Th> }
-                { isWideVersion && <Th w="8"></Th> }
-              </Tr>
-            </Thead>
+          { isLoading
+            ? (
+              <Flex justify="center">
+                <Spinner />
+              </Flex>
+              )
+            : error
+              ? (
+                <Flex justify="center">
+                  <Text>Falha ao obter dados do usuário</Text>
+                </Flex>
+                )
+              : (
+                <>
+                  <Table colorScheme="whiteAlpha">
+                    <Thead>
+                      <Tr>
+                        <Th color="gray.300" px={['4', '4', '6']} w="8">
+                          <Checkbox colorScheme="pink"/>
+                        </Th>
+                        <Th>Usuário</Th>
+                        { isWideVersion && <Th>Data de Cadastro</Th> }
+                        { isWideVersion && <Th w="8"></Th> }
+                      </Tr>
+                    </Thead>
 
-            <Tbody>
+                    <Tbody>
 
-              <Tr>
-                <Td px={['4', '4', '6']}>
-                  <Checkbox colorScheme="pink"/>
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Gui Silva</Text>
-                    <Text fontSize="sm" color="gray.300">gui@email.com</Text>
-                  </Box>
-                </Td>
-                { isWideVersion && <Td>24 de Setembro, 2021</Td> }
-                { isWideVersion && (
-                  <Td>
-                    <Button
-                      as="a"
-                      fontSize="sm"
-                      colorScheme="purple"
-                      leftIcon={<Icon as={RiPencilLine} fontSize="16"/>}
-                    >
-                      Editar
-                    </Button>
-                  </Td>
-                ) }
-              </Tr>
+                      <Tr>
+                        <Td px={['4', '4', '6']}>
+                          <Checkbox colorScheme="pink"/>
+                        </Td>
+                        <Td>
+                          <Box>
+                            <Text fontWeight="bold">Gui Silva</Text>
+                            <Text fontSize="sm" color="gray.300">gui@email.com</Text>
+                          </Box>
+                        </Td>
+                        { isWideVersion && <Td>24 de Setembro, 2021</Td> }
+                        { isWideVersion && (
+                          <Td>
+                            <Button
+                              as="a"
+                              fontSize="sm"
+                              colorScheme="purple"
+                              leftIcon={<Icon as={RiPencilLine} fontSize="16"/>}
+                            >
+                              Editar
+                            </Button>
+                          </Td>
+                        ) }
+                      </Tr>
 
-              <Tr>
-                <Td px={['4', '4', '6']}>
-                  <Checkbox colorScheme="pink"/>
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Gui Silva</Text>
-                    <Text fontSize="sm" color="gray.300">gui@email.com</Text>
-                  </Box>
-                </Td>
-                { isWideVersion && <Td>24 de Setembro, 2021</Td> }
-                { isWideVersion && (
-                  <Td>
-                    <Button
-                      as="a"
-                      fontSize="sm"
-                      colorScheme="purple"
-                      leftIcon={<Icon as={RiPencilLine} fontSize="16"/>}
-                    >
-                      Editar
-                    </Button>
-                </Td>
-                ) }
-              </Tr>
+                    </Tbody>
+                  </Table>
 
-              <Tr>
-                <Td px={['4', '4', '6']}>
-                  <Checkbox colorScheme="pink"/>
-                </Td>
-                <Td>
-                  <Box>
-                    <Text fontWeight="bold">Gui Silva</Text>
-                    <Text fontSize="sm" color="gray.300">gui@email.com</Text>
-                  </Box>
-                </Td>
-                { isWideVersion && <Td>24 de Setembro, 2021</Td> }
-                { isWideVersion && (
-                  <Td>
-                    <Button
-                      as="a"
-                      fontSize="sm"
-                      colorScheme="purple"
-                      leftIcon={<Icon as={RiPencilLine} fontSize="16"/>}
-                    >
-                      Editar
-                    </Button>
-                </Td>
-                ) }
-              </Tr>
+                  <Pagination />
+                </>
+                )
+          }
 
-            </Tbody>
-          </Table>
-
-          <Pagination />
         </Box>
       </Flex>
     </Box>
