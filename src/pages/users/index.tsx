@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Link from 'next/link'
 import {
   Box, Button, Checkbox, Flex, Heading, Icon, Spinner, Table, Text, Tbody,
@@ -11,7 +12,8 @@ import { Pagination } from 'components/Pagination'
 import { useUsers } from 'hooks/useUsers'
 
 const UserList = () => {
-  const { data, error, isLoading } = useUsers()
+  const [page, setPage] = useState(1)
+  const { data, error, isLoading } = useUsers(page)
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -68,7 +70,7 @@ const UserList = () => {
 
                     <Tbody>
 
-                      { data.map(user => {
+                      { data.users.map(user => {
                         return (
                           <Tr key={ String(user.email) }>
                             <Td px={['4', '4', '6']}>
@@ -100,7 +102,11 @@ const UserList = () => {
                     </Tbody>
                   </Table>
 
-                  <Pagination />
+                  <Pagination
+                    totalCountOfRegisters={data.totalCount}
+                    currentPage={ page }
+                    onChangePage={ setPage }
+                  />
                 </>
                 )
           }
