@@ -1,16 +1,18 @@
 <div align="center">
- <!-- <img src="public/images/logo.svg" width="110"/> -->
- <p>Dashboard</p>
+  <p>Dashboard</p>
 </div>
 
-<!-- <p></p>
+<p>Um dashboard usando as tecnologias mais atuais, responsivo e dinâmico</p>
 
 ![Home](./screens/home.png)
-![Modal](./screens/posts.png) -->
 
 ## Technologies used
-  - [NextJS](https://nextjs.org/)
-  - [Typescript](https://www.typescriptlang.org/)
+  - [NextJS](https://nextjs.org)
+  - [Typescript](https://www.typescriptlang.org)
+  - [Chakra UI](https://chakra-ui.com)
+  - [React Hook Form](https://react-hook-form.com)
+  - [Yup](https://github.com/jquense/yup)
+  - [Apexcharts](https://apexcharts.com)
 
 ## Config used
   - [Eslint](https://eslint.org)
