@@ -13,7 +13,7 @@ import { useUsers } from 'hooks/useUsers'
 
 const UserList = () => {
   const [page, setPage] = useState(1)
-  const { data, error, isLoading } = useUsers(page)
+  const { data, error, isFetching, isLoading } = useUsers(page)
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -29,7 +29,12 @@ const UserList = () => {
 
         <Box flex="1" p="8" bg="gray.800" borderRadius={8}>
           <Flex align="center" justify="space-between" mb="8">
-            <Heading size="lg" fontWeight="normal">Usuários</Heading>
+            <Heading size="lg" fontWeight="normal">
+              Usuários
+              { !isLoading && isFetching && (
+                <Spinner color="gray.500" ml="4" size="sm"/>
+              ) }
+            </Heading>
             <Link href="/users/create" passHref>
               <Button
                 as="a"
